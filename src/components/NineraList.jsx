@@ -1,33 +1,23 @@
-import { useState, useEffect } from 'react';
-import api from '../api';
+import { List, ListItem, ListItemText } from "@mui/material";
+import PropTypes from "prop-types";
 
-const NineraList = () => {
-    const [nineras, setNineras] = useState([]);
-
-    useEffect(() => {
-        const fetchNineras = async () => {
-            try {
-                const response = await api.get('/nineras');
-                setNineras(response.data);
-            } catch (error) {
-                console.error("Error fetching nineras:", error);
-            }
-        };
-        fetchNineras();
-    }, []);
-
+const NineraList = ({ nineras }) => {
     return (
-        <div>
-            <h1>Lista de Niñeras</h1>
-            <ul>
-                {nineras.map(ninera => (
-                    <li key={ninera.id}>
-                        {ninera.nombre} - Disponible: {ninera.disponible ? 'Sí' : 'No'}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <List>
+            {nineras.map((ninera) => (
+                <ListItem key={ninera.id}>
+                    <ListItemText
+                        primary={`${ ninera.nombre } ${ ninera.apellido }`}
+                        secondary={ninera.email}
+                    />
+                </ListItem>
+            ))}
+        </List>
     );
+};
+
+NineraList.propTypes = {
+    nineras: PropTypes.array.isRequired
 };
 
 export default NineraList;
