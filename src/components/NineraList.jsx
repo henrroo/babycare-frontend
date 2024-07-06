@@ -1,23 +1,71 @@
-import { List, ListItem, ListItemText } from "@mui/material";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { List, ListItem, ListItemText, Button, Snackbar } from '@mui/material';
+import axios from 'axios';
 
-const NineraList = ({ nineras }) => {
+const NineraList = ({ disponibilidades, onReserva }) => {
+    const [loading, setLoading] = useState(false);
+    const [notification, setNotification] = useState({ open: false, message: '' });
+
+    const handleReserva = async (idDisponibilidad) => {
+        setLoading(true);
+        try {
+            await axios.post('/api/reservas', { idDisponibilidad });
+            onReserva();
+            setNotification({ open: true, message: 'Reserva exitosa' });
+        } catch (error) {
+            console.error('Error al reservar:', error);
+            setNotification({ open: true, message: 'Error al realizar la reserva' });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <List>
-            {nineras.map((ninera) => (
-                <ListItem key={ninera.id}>
-                    <ListItemText
-                        primary={`${ ninera.nombre } ${ ninera.apellido }`}
-                        secondary={ninera.email}
-                    />
-                </ListItem>
-            ))}
-        </List>
+        <>
+            <List>
+                {disponibilidades.map((disponibilidad) => (
+                    <ListItem key={disponibilidad.id}>
+                        <ListItemText
+                            primary={`${ disponibilidad.ninera.nombre } ${ disponibilidad.ninera.apellido }`}
+                            secondary={`${ disponibilidad.fecha } ${ disponibilidad.horaInicio } - ${ disponibilidad.horaFin }`}
+                        />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => handleReserva(disponibilidad.id)}
+                            disabled={loading}
+                        >
+                            {loading ? 'Reservando...' : 'Reservar'}
+                        </Button>
+                    </ListItem>
+                ))}
+            </List>
+            <Snackbar
+                open={notification.open}
+                autoHideDuration={6000}
+                onClose={() => setNotification({ ...notification, open: false })}
+                message={notification.message}
+            />
+        </>
     );
 };
 
 NineraList.propTypes = {
-    nineras: PropTypes.array.isRequired
+    disponibilidades: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            fecha: PropTypes.string.isRequired,
+            horaInicio: PropTypes.string.isRequired,
+            horaFin: PropTypes.string.isRequired,
+            ninera: PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                nombre: PropTypes.string.isRequired,
+                apellido: PropTypes.string.isRequired,
+            }).isRequired,
+        })
+    ).isRequired,
+    onReserva: PropTypes.func.isRequired
 };
 
 export default NineraList;

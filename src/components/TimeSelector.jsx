@@ -1,4 +1,5 @@
 import { TextField } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const TimeSelector = ({ startTime, endTime, setStartTime, setEndTime }) => {
     return (
@@ -17,6 +18,13 @@ const TimeSelector = ({ startTime, endTime, setStartTime, setEndTime }) => {
             />
         </div>
     );
+};
+
+TimeSelector.propTypes = {
+    startTime: PropTypes.string.isRequired,
+    endTime: PropTypes.string.isRequired,
+    setStartTime: PropTypes.func.isRequired,
+    setEndTime: PropTypes.func.isRequired
 };
 
 export default TimeSelector;

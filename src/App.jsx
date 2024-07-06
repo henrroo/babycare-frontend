@@ -3,22 +3,16 @@ import axios from 'axios';
 import { Container, Typography, Button } from '@mui/material';
 import Calendar from './components/Calendar';
 import TimeSelector from './components/TimeSelector';
-import NineraList from './components/NineraList';
+import NiñeraList from './components/NineraList';
 import './App.css';
 
 function App() {
-
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('17:00');
-  const [nineras, setNineras] = useState([]);
+  const [disponibilidades, setNiñeras] = useState([]);
 
-  useEffect(() => {
-    setNineras([]);
-    fetchNineras();
-  }, [selectedDate, startTime, endTime]);
-
-  const fetchNineras = async () => {
+  const fetchNiñeras = async () => {
     try {
       const response = await axios.get('/api/disponibilidad', {
         params: {
@@ -27,14 +21,22 @@ function App() {
           horaFin: endTime
         }
       });
-      setNineras(response.data.map(d => d.ninera));
+      setNiñeras(response.data);
     } catch (error) {
       console.error('Error fetching niñeras:', error);
     }
   };
 
+  useEffect(() => {
+    fetchNiñeras();
+  }, [selectedDate, startTime, endTime]);
+
+  const handleReserva = () => {
+    fetchNiñeras();
+  };
+
   return (
-    <div className='app'>
+    <div className="app">
       <Container>
         <Typography variant="h4">BabyCare</Typography>
         <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
@@ -44,12 +46,13 @@ function App() {
           setStartTime={setStartTime}
           setEndTime={setEndTime}
         />
-        <Button className='button' variant="contained" color="primary" onClick={fetchNineras}>
+        <Button variant="contained" color="primary" onClick={fetchNiñeras}>
           Buscar Niñeras Disponibles
         </Button>
-        <NineraList nineras={nineras} />
+        <NiñeraList disponibilidades={disponibilidades} onReserva={handleReserva} />
       </Container>
     </div>
+
   );
 }
 
