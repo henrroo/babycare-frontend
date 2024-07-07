@@ -39,53 +39,52 @@ function App() {
   const handleUnlock = () => {
     setIsFading(true);
     setTimeout(() => {
-    setIsUnlocked(true);
+      setIsUnlocked(true);
     }, 500); // Este tiempo debe coincidir con la duración de la transición en CSS
   };
 
-  
+
   return (
     <div className='app'>
       {!isUnlocked && (
-        <div className={`screensaver ${isFading ? 'fade-out' : ''}`}>
+        <div className={`screensaver ${ isFading ? 'fade-out' : '' }`}>
           <div className="screensaver-content">
             <Typography variant="h3" className="welcome-text">
-               Bienvenido a BabyCare
+              Bienvenido a BabyCare
             </Typography>
             <Button
               variant="contained"
               className="unlock-button"
               onClick={handleUnlock}
-              sx={{ backgroundColor: '#e05862', '&:hover': { backgroundColor: '#c04752' }}}
+              sx={{ backgroundColor: '#e05862', '&:hover': { backgroundColor: '#c04752' } }}
             >
               Ingresar
             </Button>
-
           </div>
         </div>
       )}
       <div className="content" style={{ filter: isUnlocked ? 'none' : 'blur(5px)' }}>
-      <Container>
-        <div className="logo-container">
-          <img src="src\babycare-imagepng.png" alt="BabyCare Logo" className="logo-image" />
-        </div>
-        <div className="calendar-container">
-          <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-        </div>
-        <TimeSelector
-          startTime={startTime}
-          endTime={endTime}
-          setStartTime={setStartTime}
-          setEndTime={setEndTime}
-        />
-        <Button className='search-button' variant="contained" color="primary" onClick={fetchNiñeras} sx={{backgroundColor: '#e05862', '&:hover': { backgroundColor: '#c04752',},}}>
-          Buscar Niñeras Disponibles
-        </Button>
-        <div className="ninera-list">
-         <NiñeraList disponibilidades={disponibilidades} onReserva={handleReserva} />
-        </div>
-      </Container>
-    </div>
+        <Container>
+          <div className="logo-container">
+            <img src="src\babycare-imagepng.png" alt="BabyCare Logo" className="logo-image" />
+          </div>
+          <div className="calendar-container">
+            <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+          </div>
+          <TimeSelector
+            startTime={startTime}
+            endTime={endTime}
+            setStartTime={setStartTime}
+            setEndTime={setEndTime}
+          />
+          <Button className='search-button' variant="contained" color="primary" onClick={fetchNiñeras} sx={{ backgroundColor: '#e05862', '&:hover': { backgroundColor: '#c04752', }, }}>
+            Buscar Niñeras Disponibles
+          </Button>
+          <div className="ninera-list">
+            <NiñeraList disponibilidades={disponibilidades} onReserva={handleReserva} />
+          </div>
+        </Container>
+      </div>
     </div>
 
   );
