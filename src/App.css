@@ -1,4 +1,206 @@
-.app {
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+ 
+  .app {
+    max-width: 100%;
+    height: 100vh;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .screensaver {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
     display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  
+  .screensaver.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .screensaver.fade-out .screensaver-content {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  .screensaver-content {
+    text-align: center;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .welcome-text {
+    margin-bottom: 30px;
+    font-size: 3rem;
+    color: #e05862;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+.unlock-button {
+  background-color: #e05862;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+.unlock-button:hover {
+    background-color: #c04752;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  }
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
     text-align: center;
 }
+  h4 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  
+  .calendar-container {
+    margin-bottom: 20px;
+  }
+  
+  .react-datepicker {
+    font-family: 'Roboto', Arial, sans-serif;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    width: 90%;
+  }
+  
+  .react-datepicker__header {
+    background-color: #eb747e;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .react-datepicker__day--selected {
+    background-color: #eb747e;
+  }
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+  
+  .time-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .time-selector .MuiTextField-root {
+    width: 48%;
+  }
+  
+  .search-button {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #eb747e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .search-button {
+    background-color: #e05862;
+    color: white;
+  }
+  
+  .search-button:hover {
+    background-color: #c04752;
+  }
+
+  .react-datepicker__month-container {
+    width: 100%;
+  }
+  .react-datepicker__day {
+    width: 2.7rem;
+    line-height: 2.7rem;
+    margin: 0.166rem;
+  }
+  .ninera-list-item {
+    display: flex;
+    align-items: center;
+  }
+  .ninera-avatar {
+    margin-right: 15px;
+  }
+  .ninera-list {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .ninera-list .MuiListItem-root {
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .ninera-list .MuiListItem-root:last-child {
+    border-bottom: none;
+  }
+  
+  .ninera-list .MuiListItemText-primary {
+    color: #2c3e50;
+    font-weight: bold;
+  }
+  
+  .ninera-list .MuiListItemText-secondary {
+    color: #7f8c8d;
+  }
+  .logo-container {
+    text-align: center;
+  }
+  
+  .logo-image {
+    max-width: 500px;
+    height: auto;
+  }

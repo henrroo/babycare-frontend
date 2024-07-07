@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TimeSelector = ({ startTime, endTime, setStartTime, setEndTime }) => {
     return (
-        <div>
+        <div className="time-selector">
             <TextField
                 type="time"
                 value={startTime}

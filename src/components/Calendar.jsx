@@ -6,8 +6,10 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
     return (<
         DatePicker selected={selectedDate}
         onChange={date => setSelectedDate(date)}
-        inline /
-    >
+        inline
+        monthsShown={1}
+        fixedHeight
+        />
     );
 };
 

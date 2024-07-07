@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { List, ListItem, ListItemText, Button, Snackbar } from '@mui/material';
+import { List, ListItem, ListItemText, Button, Snackbar,ListItemAvatar, Avatar } from '@mui/material';
 import axios from 'axios';
+import PersonIcon from '@mui/icons-material/Person';
 
 const NineraList = ({ disponibilidades, onReserva }) => {
     const [loading, setLoading] = useState(false);
@@ -25,11 +26,16 @@ const NineraList = ({ disponibilidades, onReserva }) => {
         <>
             <List>
                 {disponibilidades.map((disponibilidad) => (
-                    <ListItem key={disponibilidad.id}>
+                    <ListItem key={disponibilidad.id} className="ninera-list-item">
+                        <ListItemAvatar className="ninera-avatar">
+                            <Avatar>
+                                <PersonIcon />
+                            </Avatar>
+                        </ListItemAvatar>
                         <ListItemText
                             primary={`${ disponibilidad.ninera.nombre } ${ disponibilidad.ninera.apellido }`}
                             secondary={`${ disponibilidad.fecha } ${ disponibilidad.horaInicio } - ${ disponibilidad.horaFin }`}
-                        />
+                        />  
                         <Button
                             variant="contained"
                             color="primary"
