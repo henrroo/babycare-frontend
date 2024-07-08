@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, Button } from '@mui/material';
+import { Container, Typography, Button, TextField, InputAdornment } from '@mui/material';
 import Calendar from './components/Calendar';
 import TimeSelector from './components/TimeSelector';
 import NiñeraList from './components/NineraList';
 import './App.css';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import LoginScreen from './LoginScreen';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -47,22 +50,12 @@ function App() {
   return (
     <div className='app'>
       {!isUnlocked && (
-        <div className={`screensaver ${ isFading ? 'fade-out' : '' }`}>
-          <div className="screensaver-content">
-            <Typography variant="h3" className="welcome-text">
-              Bienvenido a BabyCare
-            </Typography>
-            <Button
-              variant="contained"
-              className="unlock-button"
-              onClick={handleUnlock}
-              sx={{ backgroundColor: '#e05862', '&:hover': { backgroundColor: '#c04752' } }}
-            >
-              Ingresar
-            </Button>
-          </div>
-        </div>
-      )}
+  <div className={`screensaver ${isFading ? 'fade-out' : ''}`}>
+    <div className="screensaver-content">
+      <LoginScreen handleUnlock={handleUnlock} isFading={isFading} />
+    </div>
+  </div>
+)}
       <div className="content" style={{ filter: isUnlocked ? 'none' : 'blur(5px)' }}>
         <Container>
           <div className="logo-container">
